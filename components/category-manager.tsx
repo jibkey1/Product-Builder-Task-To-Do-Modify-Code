@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -71,6 +72,7 @@ export function CategoryManager({ onAddCategory }: CategoryManagerProps) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Create New Note</DialogTitle>
+          <DialogDescription>Add a new note with a name and color.</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
           <Input
