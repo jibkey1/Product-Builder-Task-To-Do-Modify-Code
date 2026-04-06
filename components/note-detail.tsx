@@ -487,7 +487,7 @@ function NoteItemRow({
           variant="ghost"
           size="icon"
           onClick={onDelete}
-          className="h-8 w-8 rounded-full text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-all"
+          className="h-8 w-8 rounded-full text-muted-foreground/30 hover:text-destructive hover:bg-destructive/10 transition-colors"
           title="Delete"
         >
           <Trash2 className="w-4 h-4" />
