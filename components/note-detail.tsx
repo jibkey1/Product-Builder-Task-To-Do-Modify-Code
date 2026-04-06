@@ -20,6 +20,8 @@ export function NoteDetail({ category, onBack, onUpdateCategory }: NoteDetailPro
   const [addingType, setAddingType] = useState<ItemType | null>(null)
   const [newItemText, setNewItemText] = useState("")
   const [dragOverId, setDragOverId] = useState<string | null>(null)
+  const [editingTitle, setEditingTitle] = useState(false)
+  const [editTitleText, setEditTitleText] = useState(category.name)
   const dragItemId = useRef<string | null>(null)
 
   const startAdding = (type: ItemType) => {
@@ -85,6 +87,20 @@ export function NoteDetail({ category, onBack, onUpdateCategory }: NoteDetailPro
     })
   }
 
+  const commitTitleEdit = () => {
+    if (editTitleText.trim()) {
+      onUpdateCategory({ ...category, name: editTitleText.trim() })
+    } else {
+      setEditTitleText(category.name)
+    }
+    setEditingTitle(false)
+  }
+
+  const handleTitleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") commitTitleEdit()
+    if (e.key === "Escape") { setEditTitleText(category.name); setEditingTitle(false) }
+  }
+
   // Drag and drop handlers
   const handleDragStart = (id: string) => {
     dragItemId.current = id
@@ -134,7 +150,23 @@ export function NoteDetail({ category, onBack, onUpdateCategory }: NoteDetailPro
         </Button>
         <div className="flex items-center gap-2 flex-1">
           <div className="w-3 h-3 rounded-full" style={{ backgroundColor: category.color }} />
-          <h1 className="text-lg font-semibold">{category.name}</h1>
+          {editingTitle ? (
+            <Input
+              autoFocus
+              value={editTitleText}
+              onChange={(e) => setEditTitleText(e.target.value)}
+              onBlur={commitTitleEdit}
+              onKeyDown={handleTitleKeyDown}
+              className="border-0 bg-transparent p-0 h-auto focus-visible:ring-0 text-lg font-semibold"
+            />
+          ) : (
+            <h1
+              onClick={() => { setEditTitleText(category.name); setEditingTitle(true) }}
+              className="text-lg font-semibold cursor-pointer hover:opacity-70 transition-opacity"
+            >
+              {category.name}
+            </h1>
+          )}
         </div>
         <span className="text-sm text-muted-foreground">
           {category.items.filter(i => i.type === "todo" && !i.completed).length} remaining
