@@ -100,7 +100,7 @@ export default function TodoApp() {
             <header className="px-4 pt-8 pb-4 bg-background sticky top-0 z-10">
               <div className="flex items-center justify-between mb-6">
                 <h1 className="text-3xl font-bold tracking-tight">
-                  {currentView === "flagged" ? "Flagged" : "Categories"}
+                  {currentView === "flagged" ? "Flagged" : "Notes"}
                 </h1>
               </div>
 
